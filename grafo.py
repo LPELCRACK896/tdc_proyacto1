@@ -1,11 +1,12 @@
 
 
 class Grafo:
-    def __init__(self, alfabeto = [], estados = [], isAFD = True) :
+    def __init__(self, estado_inicial, alfabeto = [], estados = [], isAFD = True, ) :
         self.alfabeto = alfabeto #Aceptado como trancisiones (nombre de arista, digamos)
         self.estados = estados #Estados (vertices)
         self.matriz = [[None for caracter in self.alfabeto] for estado in self.estados] #Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
         self.isAFD = isAFD
+        self.estado_inicial = estado_inicial
         return  
         ''' 0 1 2 <- Simbolo de entrada
         A | Estado resultante 
@@ -36,7 +37,7 @@ class Grafo:
         self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)].append(estado_final)
         return              
     
-    def emulate_AF(self, cadena):
+    def emulate_AFD(self, cadena):
         if self.isAFD:
             cont_r = 0
             for row in self.matriz:
@@ -48,7 +49,19 @@ class Grafo:
                         return
                     cont_c +=1 
                 cont_r += 1
-    
+        
+        estado_actual = self.estado_inicial
+        res_str = ""
+        vertices = [estado_actual]
+        for input in cadena:
+            res_str += estado_actual
+            estado_actual = self.matriz[self.estados.index(estado_actual)][self.alfabeto.index(input)]
+            vertices.append(estado_actual)
+            res_str += f"-({input})->"+estado_actual+"\n"
+        print(res_str)
+        return vertices
+
+
     def build_AFD_step_by_step(self):
         desdeCero = input("¿Desea definir todas las trancisiones (sobreescribe las que ya esten hecha si hay alguna)?(S/N)").upper()=="S"
         cont_r = 0
