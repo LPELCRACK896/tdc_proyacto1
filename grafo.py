@@ -1,0 +1,79 @@
+
+
+class Grafo:
+    def __init__(self, alfabeto = [], estados = [], isAFD = True) :
+        self.alfabeto = alfabeto #Aceptado como trancisiones (nombre de arista, digamos)
+        self.estados = estados #Estados (vertices)
+        self.matriz = [[None for caracter in self.alfabeto] for estado in self.estados] #Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
+        self.isAFD = isAFD
+        return  
+        ''' 0 1 2 <- Simbolo de entrada
+        A | Estado resultante 
+        B |
+        C |
+        ^ Estados de los que viene
+        
+        '''
+    
+    def set_transition(self, estado_inicial, caracter_input, estado_final):
+        if not (estado_inicial in self.estados and caracter_input in self.alfabeto and estado_final in self.estados):
+            print("No es posible actualizar el estado")
+            return
+          
+        #Determinista
+        if self.isAFD:
+            self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)] = estado_final
+            return 
+        
+        #En caso no sea determinista
+
+        #En caso no tenga trancision definida aun
+        if not self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)]:
+            self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)] = [estado_final]
+            return
+        
+        #En caso ya tenga una trancision definida
+        self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)].append(estado_final)
+        return              
+    
+    def emulate_AF(self, cadena):
+        if self.isAFD:
+            cont_r = 0
+            for row in self.matriz:
+                cont_c = 0
+                for column in row:
+                    if not column:
+                        print(f"No se ha definido la trancision para el estado {self.estados[cont_r]} con input {self.alfabeto[cont_c]}")
+                        print(self.matriz)
+                        return
+                    cont_c +=1 
+                cont_r += 1
+    
+    def build_AFD_step_by_step(self):
+        desdeCero = input("¿Desea definir todas las trancisiones (sobreescribe las que ya esten hecha si hay alguna)?(S/N)").upper()=="S"
+        cont_r = 0
+        for row in self.matriz[:]:
+            cont_c = 0
+            for column in row:
+                if desdeCero:
+                    if not column:
+                        estado_final = None
+                        estado_inicial = self.estados[cont_r]
+                        alf_input = self.alfabeto[cont_c]
+                        while not estado_final:
+                            ef = input(f"Ingrese el estado al que trancisiona el estado \"{estado_inicial}\" al ingresar {alf_input}: ")
+                            if ef in self.estados: estado_final = ef
+                            else: print("No es un estado valido....")
+                        self.matriz[cont_r][cont_c] = estado_final
+                else:
+                    if not column:
+                        estado_final = None
+                        estado_inicial = self.estados[cont_r]
+                        alf_input = self.alfabeto[cont_c]
+                        while not estado_final:
+                            ef = input(f"Ingrese el estado al que trancisiona el estado \"{estado_inicial}\" al ingresar {alf_input}: ")
+                            if ef in self.estados: estado_final = ef
+                            else: print("No es un estado valido....")
+                        self.matriz[cont_r][cont_c] = estado_final
+                cont_c +=1 
+            cont_r += 1
