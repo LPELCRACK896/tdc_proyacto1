@@ -1,12 +1,13 @@
 
 
 class Grafo:
-    def __init__(self, estado_inicial, alfabeto = [], estados = [], isAFD = True, ) :
+    def __init__(self, estado_inicial, alfabeto = [], estados = [], isAFD = True, estados_de_aceptacion = [] ) :
         self.alfabeto = alfabeto #Aceptado como trancisiones (nombre de arista, digamos)
         self.estados = estados #Estados (vertices)
         self.matriz = [[None for caracter in self.alfabeto] for estado in self.estados] #Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
         self.isAFD = isAFD
         self.estado_inicial = estado_inicial
+        self.estados_de_aceptacion = [item for item in estados_de_aceptacion if item in self.estados]
         return  
         ''' 0 1 2 <- Simbolo de entrada
         A | Estado resultante 
@@ -59,7 +60,7 @@ class Grafo:
             vertices.append(estado_actual)
             res_str += f"-({input})->"+estado_actual+"\n"
         print(res_str)
-        return vertices
+        return vertices, estado_actual in self.estados_de_aceptacion
 
 
     def build_AFD_step_by_step(self):
