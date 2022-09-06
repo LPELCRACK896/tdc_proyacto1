@@ -1,6 +1,6 @@
 
 
-class Grafo:
+class Automata:
     def __init__(self, estado_inicial, alfabeto = [], estados = [], isAFD = True, estados_de_aceptacion = [] ) :
         self.alfabeto = alfabeto #Aceptado como trancisiones (nombre de arista, digamos)
         self.estados = estados #Estados (vertices)
