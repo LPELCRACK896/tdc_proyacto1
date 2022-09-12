@@ -13,23 +13,15 @@ class AFN(Automata):
         self.indice_estado_e: int = self.alfabeto.index('ε') if 'ε' in self.alfabeto else -1
         self.cerraduras_de_estados = { estado:None for estado in self.estados }
 
-    def set_transition(self, estado_inicial, caracter_input, estado_final):
+    def build_AFN_step_by_step(self):
+        pass
 
-        if not (estado_inicial in self.estados and caracter_input in self.alfabeto and estado_final in self.estados):
-            print("No es posible actualizar el estado")
-            return
-          
-        #En caso no sea determinista
+    def console_use_define_mult_transition(self):
+        pass
 
-        #En caso no tenga trancision definida aun
-        if not self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)]:
-            self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)] = [estado_final]
-            return
-        
-        #En caso ya tenga una trancision definida
-        self.matriz[self.estados.index(estado_inicial)][self.alfabeto.index(caracter_input)].append(estado_final)
-        return   
-    
+    def console_use_define_single_transition(self):
+        pass
+
     def cerradura_de_estados(self):
         # Sin trancisiones epsilon 
         if self.indice_estado_e==-1:
@@ -42,18 +34,22 @@ class AFN(Automata):
         while not self.estados == revisados:
             if not self.estados[estado_i] in revisados:
                 revisados = self.cerradura_un_estado(self.estados[estado_i], cerradura_est, [self.estados[estado_i]])
+            revisados = self.clean_duplicates(revisados)
             estado_i += 1
 
-
-    def cerradura_un_estado(self, estado, dicc_cerraduras, rastro):
-        for estado in rastro:
-            if dicc_cerraduras.get(estado):
-                dicc_cerraduras.get(estado).add(estado)
+    def cerradura_un_estado(self, estado, dicc_cerraduras: dict, rastro: list):
+        for estado_r in rastro:
+            if dicc_cerraduras.get(estado_r):
+                dicc_cerraduras.get(estado_r).add(estado)
             else:
                 dicc_cerraduras[estado] = {estado}
-        
-        estados_trn = self.cerradura_de_estados[self.estados.index(estado)][self.indice_estado_e]
-        
-        if estados_trn:
-            pass
-        
+            print('a')
+        estados_a_donde_puede_ir_con_epsilon = self.matriz[self.estados.index(estado)][self.indice_estado_e]#A donde puede ir el estado actual con epsilon
+        revisados:list = rastro
+        for estado_d in estados_a_donde_puede_ir_con_epsilon:
+            if not estado in rastro:
+                rev:list = rastro
+                rev.append(estado_d)
+                revisados.extend(self.cerradura_de_estados(estado_d, dicc_cerraduras, rev))
+            print('b')
+        return revisados
