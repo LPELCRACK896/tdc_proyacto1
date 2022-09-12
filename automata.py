@@ -19,9 +19,16 @@ class Automata(ABC):
         Returns:
             _type_: _description_
         """
+        if not estado_inicial in estados:
+            print("No es posible establecer el estado inicial dado los estados descritos para el automata")
+            return
+        if not all(item in estados for item in estados_de_aceptacion):
+            print("No es posible crear la lista de aceptacion dado los estados descritos para el automata")
+            return
+        
         self.alfabeto: list = self.clean_duplicates(alfabeto) #Aceptado como trancisiones (nombre de arista, digamos)
         self.estados: list = self.clean_duplicates(estados) #Estados (vertices)
-        self.matriz: list = [[None for caracter in self.alfabeto] for estado in self.estados] #Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
+        self.transitions: dict = {estado: {caracter: None for caracter in self.alfabeto} for estado in self.estados} #Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
         self.estado_inicial = estado_inicial
         self.estados_de_aceptacion: list = [item for item in estados_de_aceptacion if item in self.estados]
         return  
