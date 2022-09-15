@@ -1,4 +1,3 @@
-from tabnanny import check
 from automata import Automata
 from camino import Camino
 class AFN(Automata):
@@ -69,4 +68,3 @@ class AFN(Automata):
         camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial)
         camino.setup_tree()
         self.caminos = camino.caminos_enlistado
-

@@ -1,4 +1,5 @@
 from nodo_camino import NodoCamino
+
 class Camino():
     def __init__(self, nombre: str, cadena_recorrida: str, cerradura_asociada: dict, transitions: dict, estado_inicial) -> None:
         self.nombre = nombre
