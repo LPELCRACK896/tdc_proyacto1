@@ -1,7 +1,6 @@
-from unittest import result
+from tabnanny import check
 from automata import Automata
-
-
+from camino import Camino
 class AFN(Automata):
     
     def __init__(self, estado_inicial, alfabeto = [], estados = [], estados_de_aceptacion = [], transitions = {}):
@@ -9,23 +8,26 @@ class AFN(Automata):
         self.transitions: dict = transitions if transitions else {estado: {caracter: [] for caracter in self.alfabeto} for estado in self.estados}#Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
         self.hasTransitionE: bool = 'ε' in self.alfabeto 
         self.cerraduras_de_estados = { estado : set() for estado in self.estados }
+        self.caminos = []
 
     def build_AFN_step_by_step(self):
         pass
-
-    def console_use_define_mult_transition(self):
-        pass
-
-    def console_use_define_single_transition(self):
-        pass
     
-    def define_transition_matrix(self):
-        pass
+    def check_cadena(self, cadena):
+        aprueba = True
+        cont = 0
+        while aprueba and cont!=len(cadena):
+            aprueba = cadena[cont] in self.alfabeto
+            cont += 1
+        return aprueba
+
+    def define_transition_matrix(self, transtions):
+        self.transitions = transtions
     
-    def cerradura_de_estados(self):
-        # Sin trancisiones epsilon 
+    def create_cerradura_de_estados(self):
+        # Sin trancisiones epsilon l
         if not self.hasTransitionE:
-            self.cerradura_de_estados = {state: [state] for state in self.estados}
+            self.cerraduras_de_estados = {state: [state] for state in self.estados}
             return
         #Con transiciones epsilon
         revisados = []
@@ -33,12 +35,12 @@ class AFN(Automata):
         cerradura_est = { estado : {estado} for estado in self.estados }
         while not all(stt in revisados for stt in self.estados):
             if not self.estados[estado_i] in revisados:
-                revisados += self.cerradura_un_estado(self.estados[estado_i], cerradura_est, [self.estados[estado_i]], [self.estados[estado_i]])[1]
+                revisados += self.create_cerradura_un_estado(self.estados[estado_i], cerradura_est, [self.estados[estado_i]], [self.estados[estado_i]])[1]
             revisados = self.clean_duplicates(revisados)
             estado_i += 1
         self.cerraduras_de_estados = cerradura_est
     
-    def cerradura_un_estado(self, estado, dicc_cerraduras: dict, rastro: list, predecesores: list):        
+    def create_cerradura_un_estado(self, estado, dicc_cerraduras: dict, rastro: list, predecesores: list):        
         estados_a_donde_puede_ir_con_epsilon = self.transitions.get(estado).get('ε')#A donde puede ir el estado actual con epsilon    
         revisados:list = rastro[:]
         if estados_a_donde_puede_ir_con_epsilon:
@@ -49,10 +51,9 @@ class AFN(Automata):
                     rastro_est_d.append(estado_d)
                     prec_est_d = predecesores[:]
                     if not estado_d in prec_est_d: prec_est_d.append(estado_d)
-                    cerr_estado_i, rastro_est_d = self.cerradura_un_estado(estado_d, dicc_cerraduras, rastro_est_d, prec_est_d)
+                    cerr_estado_i, rastro_est_d = self.create_cerradura_un_estado(estado_d, dicc_cerraduras, rastro_est_d, prec_est_d)
                     revisados.extend(rastro_est_d)
                     estados_a_donde_puede_ir_con_epsilon = estados_a_donde_puede_ir_con_epsilon.union(cerr_estado_i)                          
-                print('b')   
         else:
             estados_a_donde_puede_ir_con_epsilon = {estado}    
         for estado_pred in predecesores:
@@ -60,5 +61,12 @@ class AFN(Automata):
         
         return estados_a_donde_puede_ir_con_epsilon, revisados
     
-    def recorrido_AFN(self):
-        pass
+    def recorrido_AFN(self, cadena: str):
+        if not self.check_cadena(cadena):
+            print("Cadena invalida")
+            return
+        self.create_cerradura_de_estados()
+        camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial)
+        camino.setup_tree()
+        self.caminos = camino.caminos_enlistado
+

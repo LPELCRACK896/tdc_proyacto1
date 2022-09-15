@@ -2,24 +2,22 @@ from automata import Automata
 
 class AFD(Automata):
 
-    def __init__(self, estado_inicial, alfabeto=[], estados=[], estados_de_aceptacion=[]):
+    def __init__(self, estado_inicial, alfabeto=[], estados=[], estados_de_aceptacion=[], transitions = {}):
         if 'ε' in alfabeto: 
             print("No se permite transiciones vacias en un automata determinista")
             return
         super().__init__(estado_inicial, alfabeto, estados, estados_de_aceptacion)
+        self.transitions: dict = transitions if transitions else {estado: {caracter: [] for caracter in self.alfabeto} for estado in self.estados}#Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
     
     def emulate_AFD(self, cadena: str):
-        cont_r = 0
-        for row in self.transitions:
-            cont_c = 0
-            for column in self.transitions.get(row):
-                if not self.transitions.get(row).get(column):
-                    print(f"No se ha definido la trancision para el estado {row} con input {column}")
+        
+        for state in self.transitions:
+            for trns in self.transitions.get(state):
+                if not self.transitions.get(state).get(trns):
+                    print(f"No se ha definido la trancision para el estado {state} con input {trns}")
                     print(self.transitions)
                     return
-                cont_c +=1 
-            cont_r += 1
-        
+                    
         estado_actual = self.estado_inicial
         res_str = ""
         vertices = [estado_actual]
