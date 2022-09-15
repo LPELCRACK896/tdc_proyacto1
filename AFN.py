@@ -1,5 +1,6 @@
 from automata import Automata
 from camino import Camino
+
 class AFN(Automata):
     
     def __init__(self, estado_inicial, alfabeto = [], estados = [], estados_de_aceptacion = [], transitions = {}):

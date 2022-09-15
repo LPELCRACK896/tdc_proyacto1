@@ -1,5 +1,3 @@
-from gettext import translation
-from urllib.parse import _NetlocResultMixinStr
 from AFD import AFD
 from AFN import AFN
 
