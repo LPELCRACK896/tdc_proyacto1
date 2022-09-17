@@ -48,5 +48,7 @@ def AFN_to_AFD_transformer(afn: AFN) -> AFD:
     if not needs_empty_state:
         new_states.pop(0)
         tabla_trancisiones_AFD.pop('VACIO')
+        f=open("AFNaAFD.txt",'w')
+        f.write(AFD(str(afn.cerraduras_de_estados.get(afn.estado_inicial)), [alf for alf in afn.alfabeto if alf != 'ε'], [str(state) for state in new_states], accepted_states, tabla_trancisiones_AFD))
     return AFD(str(afn.cerraduras_de_estados.get(afn.estado_inicial)), [alf for alf in afn.alfabeto if alf != 'ε'], [str(state) for state in new_states], accepted_states, tabla_trancisiones_AFD)
     
