@@ -1,4 +1,3 @@
-from types import TracebackType
 from AFN import AFN
 from AFD import AFD
 import AFN_to_AFD_transformer as afdC
@@ -66,6 +65,6 @@ afn2 = AFN('A', ['0', '1', 'ε'], ['A', 'B', 'C'], ['C'],
 )
 
 afn.create_cerradura_de_estados()
-afn.recorrido_AFN('000')
 
 afd = afdC.AFN_to_AFD_transformer(afn)
+print(afd.emulate_AFD('000'))

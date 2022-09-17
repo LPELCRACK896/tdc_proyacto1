@@ -9,6 +9,8 @@ class AFN(Automata):
         self.hasTransitionE: bool = 'ε' in self.alfabeto 
         self.cerraduras_de_estados = { estado : set() for estado in self.estados }
         self.caminos = []
+        
+        self.create_cerradura_de_estados()
 
     def build_AFN_step_by_step(self):
         pass
@@ -69,3 +71,4 @@ class AFN(Automata):
         camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial)
         camino.setup_tree()
         self.caminos = camino.caminos_enlistado
+        return self.caminos
