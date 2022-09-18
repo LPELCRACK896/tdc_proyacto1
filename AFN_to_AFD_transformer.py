@@ -1,3 +1,4 @@
+from sre_parse import State
 from AFD import AFD
 from AFN import AFN
 
@@ -48,7 +49,16 @@ def AFN_to_AFD_transformer(afn: AFN) -> AFD:
     if not needs_empty_state:
         new_states.pop(0)
         tabla_trancisiones_AFD.pop('VACIO')
-        f=open("AFNaAFD.txt",'w')
-        f.write(AFD(str(afn.cerraduras_de_estados.get(afn.estado_inicial)), [alf for alf in afn.alfabeto if alf != 'ε'], [str(state) for state in new_states], accepted_states, tabla_trancisiones_AFD))
+
+    f=open("AFDtoAFN.txt",'w')
+    trans=""
+    tablita = tabla_trancisiones_AFD
+    for r in tablita:
+        for b in tablita.get(r):
+            trans += (f"({r}, {b}, {tablita.get(r).get(b)})- ")
+    
+    f.write('Estados: '+str(new_states)+'\n'+'Simbolos: '+str(afn.alfabeto)+'\n'+'Estado inicial: '+str(afn.estado_inicial)+'\n'+'Aceptacion: '+str(accepted_states)+'\n'+'Transiciones: '+str(trans)+'\n')
+ 
+    
     return AFD(str(afn.cerraduras_de_estados.get(afn.estado_inicial)), [alf for alf in afn.alfabeto if alf != 'ε'], [str(state) for state in new_states], accepted_states, tabla_trancisiones_AFD)
     

@@ -2,11 +2,14 @@ from AFD import AFD
 from AFN import AFN
 r = '(1|0)*'
 w = '10000'
-''''
-logica para obetener de regex a un afn o afd
+
 
 
 '''
+logica para obetener de regex a un afn o afd
+'''
+
+
 afd = AFD('A', ['1', '0'], ['A', 'B'], ['B'],{
                 'A':
                     {

@@ -1,14 +1,56 @@
 
 import AFN_to_AFD_transformer
 import regextransformer
+from AFD import AFD
+from AFN import AFN
 
 
-#Menú
+r = '(1|0)*'
+w = '10000'
+
+afd = AFD('A', ['1', '0'], ['A', 'B'], ['B'],{
+                'A':
+                    {
+                        '0': 'B', 
+                        '1': 'A'
+                    },
+                'B':
+                    {
+                        '0': 'B', 
+                        '1': 'A'
+                    },})
+
+afn = AFN('A', ['1', '0'], ['A', 'B'], ['B'],{
+                'A':
+                    {
+                        '0': 'B', 
+                        '1': 'A'
+                    },
+                'B':
+                    {
+                        '0': 'B', 
+                        '1': 'A'
+                    },})
+
+def writeAFD(afd: AFD):
+    trans = ""
+    for r in afd.transitions:
+        for b in afd.transitions.get(r):
+            trans += (f"({r}, {b}, {afd.transitions.get(r).get(b)})- ")
+  
+
+    f=open("AFD.txt",'w')
+    
+    f.write('Estados: '+str(afd.estados)+'\n'+'Simbolos: '+str(afd.alfabeto)+'\n'+'Estado inicial: '+str(afd.estado_inicial)+'\n'+'Aceptacion: '+str(afd.estados_de_aceptacion)+'\n'+'Transiciones: '+str(trans)+'\n')
+
+writeAFD(afd)
+
+AFN_to_AFD_transformer.AFN_to_AFD_transformer(afn)
 
 
 jelly = 0
 
-while jelly == 0:
+''' while jelly == 0:
     print("\n-------Escoga una de las opciones para continuar-------")
     print("1. Transformación de expresión regular a postfix\n2. Generación de AFN (Archivo)\n3. Conversión AFN a AFD (Archivo)\n4. Generación de AFD Directo (Archivo)\n5. Minimización de AFD’s (Archivo)\n6. Simulación AFN y AFD\n7. Salir del programa")
 
@@ -40,4 +82,4 @@ while jelly == 0:
         print("Debe escoger una opción valida")
 
 
-
+ '''
