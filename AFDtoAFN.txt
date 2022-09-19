@@ -1,0 +1,5 @@
+Estados: [['A'], {'A'}, {'B'}, {'B'}]
+Simbolos: ['1', '0']
+Estado inicial: A
+Aceptacion: ["{'B'}"]
+Transiciones: (['A'], 1, {'A'})- (['A'], 0, {'B'})- ({'A'}, 1, {'A'})- ({'A'}, 0, {'B'})- ({'B'}, 1, {'A'})- ({'B'}, 0, {'B'})- 
