@@ -1,4 +1,4 @@
-Estados: ['B', 'A']
+Estados: ['A', 'B']
 Simbolos: ['1', '0']
 Estado inicial: A
 Aceptacion: ['B']

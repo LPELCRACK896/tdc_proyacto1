@@ -20,17 +20,45 @@ afd = AFD('A', ['1', '0'], ['A', 'B'], ['B'],{
                         '1': 'A'
                     },})
 
-afn = AFN('A', ['1', '0'], ['A', 'B'], ['B'],{
+afn = AFN('A', ['0', '1', 'ε'], ['A', 'B', 'C', 'D', 'E', 'F'], ['D'], 
+            {
                 'A':
                     {
-                        '0': 'B', 
-                        '1': 'A'
+                        '0': ['E'], 
+                        '1': ['B'],
+                        'ε': None
                     },
                 'B':
                     {
-                        '0': 'B', 
-                        '1': 'A'
-                    },})
+                        '0': None, 
+                        '1': ['C'],
+                        'ε': ['D']
+                    },
+                'C':
+                    {
+                        '0': None, 
+                        '1': ['D'],
+                        'ε': None
+                    },
+                'D':
+                    {
+                        '0': None, 
+                        '1': None,
+                        'ε': None
+                    },
+                'E':
+                    {
+                        '0': ['F'], 
+                        '1': None,
+                        'ε': ['B', 'C']
+                    },
+                'F':
+                    {
+                        '0': ['D'], 
+                        '1': None,
+                        'ε': None
+                    },
+            })
 
 def writeAFD(afd: AFD):
     trans = ""
@@ -39,7 +67,7 @@ def writeAFD(afd: AFD):
             trans += (f"({r}, {b}, {afd.transitions.get(r).get(b)})- ")
   
 
-    f=open("AFD.txt",'w')
+    f=open("AFD.txt",'w',encoding="utf-8")
     
     f.write('Estados: '+str(afd.estados)+'\n'+'Simbolos: '+str(afd.alfabeto)+'\n'+'Estado inicial: '+str(afd.estado_inicial)+'\n'+'Aceptacion: '+str(afd.estados_de_aceptacion)+'\n'+'Transiciones: '+str(trans)+'\n')
 
@@ -48,6 +76,7 @@ writeAFD(afd)
 AFN_to_AFD_transformer.AFN_to_AFD_transformer(afn)
 
 
+# AFN(afn)
 jelly = 0
 
 ''' while jelly == 0:

@@ -50,13 +50,12 @@ def AFN_to_AFD_transformer(afn: AFN) -> AFD:
         new_states.pop(0)
         tabla_trancisiones_AFD.pop('VACIO')
 
-    f=open("AFDtoAFN.txt",'w')
+    f=open("AFDtoAFN.txt",'w', encoding="utf-8")
     trans=""
     tablita = tabla_trancisiones_AFD
     for r in tablita:
         for b in tablita.get(r):
             trans += (f"({r}, {b}, {tablita.get(r).get(b)})- ")
-    
     f.write('Estados: '+str(new_states)+'\n'+'Simbolos: '+str(afn.alfabeto)+'\n'+'Estado inicial: '+str(afn.estado_inicial)+'\n'+'Aceptacion: '+str(accepted_states)+'\n'+'Transiciones: '+str(trans)+'\n')
  
     

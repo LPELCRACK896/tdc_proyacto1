@@ -9,6 +9,16 @@ class AFN(Automata):
         self.hasTransitionE: bool = 'ε' in self.alfabeto 
         self.cerraduras_de_estados = { estado : set() for estado in self.estados }
         self.caminos = []
+
+        f=open("AFN.txt",'w')
+        trans=""
+        tablita = transitions
+        for r in tablita:
+            for b in tablita.get(r):
+                trans += (f"({r}, {b}, {tablita.get(r).get(b)})- ")
+        
+        # f.write('Estados: '+str(estados)+'\n'+'Simbolos: '+str(alfabeto)+'\n'+'Estado inicial: '+str(estado_inicial)+'\n'+'Aceptacion: '+str(estados_de_aceptacion)+'\n'+'Transiciones: '+str(trans)+'\n')
+
         
         self.create_cerradura_de_estados()
 
@@ -71,4 +81,10 @@ class AFN(Automata):
         camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial)
         camino.setup_tree()
         self.caminos = camino.caminos_enlistado
+        
+
+        
         return self.caminos
+ 
+
+    
