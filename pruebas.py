@@ -65,6 +65,24 @@ afn2 = AFN('A', ['0', '1', 'ε'], ['A', 'B', 'C'], ['C'],
 )
 
 afn.create_cerradura_de_estados()
+dc = {'a1': '1', 'a2': '2'}
+cd = {'q1': '1', 'q2': '2'}
+""" afd = afdC.AFN_to_AFD_transformer(afn)
+print(afd.emulate_AFD('000')) """
 
-afd = afdC.AFN_to_AFD_transformer(afn)
-print(afd.emulate_AFD('000'))
+def add(lista, a):
+    lista.append(a)
+
+lista = []
+add(lista, 1)
+print(lista)
+
+a = [1, 2, 3]
+lista.extend(a)
+print(lista[-1])
+
+print(lista[-2])
+
+lista[1]= 'a'
+lista[-3] = 'b'
+print(lista)
