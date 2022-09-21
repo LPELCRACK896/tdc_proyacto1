@@ -1,6 +1,6 @@
 
 import AFN_to_AFD_transformer
-import regextransformer
+
 from AFD import AFD
 from AFN import AFN
 

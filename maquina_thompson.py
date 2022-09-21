@@ -1,4 +1,8 @@
 from AFN import AFN
+
+
+
+
 class MaquinaThompson():
 
     def __init__(self,  termino_1, termino_2, operador, nombre, ultimo_estado_global, alfabeto) -> None:
