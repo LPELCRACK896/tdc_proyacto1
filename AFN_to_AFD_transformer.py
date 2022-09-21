@@ -8,7 +8,7 @@ def AFN_to_AFD_transformer(afn: AFN) -> AFD:
     accepted_states = []
     needs_empty_state = False
     
-    def esEstadoAcpetado(nuevoEstado: set):
+    def esEstadoAceptado(nuevoEstado: set):
         index = 0
         aceptado = False
         nuevoEstado = list(nuevoEstado)
@@ -37,7 +37,7 @@ def AFN_to_AFD_transformer(afn: AFN) -> AFD:
                     transitions[input] = str(next_state)
                     if not next_state in new_states: 
                         pendientes.append(next_state)
-                        if esEstadoAcpetado(next_state) and not str(next_state) in accepted_states: accepted_states.append(str(next_state))
+                        if esEstadoAceptado(next_state) and not str(next_state) in accepted_states: accepted_states.append(str(next_state))
                 else:
                     needs_empty_state = True
                     transitions[input] = 'VACIO'
