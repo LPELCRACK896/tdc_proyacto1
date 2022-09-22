@@ -29,7 +29,6 @@ class Automata(ABC):
         self.alfabeto: list = self.clean_duplicates(alfabeto) #Aceptado como trancisiones (nombre de arista, digamos)
         self.estados: list = self.clean_duplicates(estados) #Estados (vertices)
         self.transitions: dict = {estado: {caracter: None for caracter in self.alfabeto} for estado in self.estados} #Trancisiones que se realizan entre estados (representa las aristas), Vertical:  // None indica que no hay trancision
-        print(self.transitions)
         self.estado_inicial = estado_inicial
         self.estados_de_aceptacion: list = [item for item in estados_de_aceptacion if item in self.estados]
         return  
