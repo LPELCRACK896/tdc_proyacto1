@@ -1,5 +1,5 @@
-Estados: ['VACIO', {'A'}, {'D', 'B'}, {'E', 'D', 'C', 'B'}, {'C'}, {'D', 'C'}, {'F'}, {'D'}, {'D'}, {'D'}]
-Simbolos: ['1', '0', 'ε']
+Estados: ['VACIO', {'A'}, {'D', 'E', 'C', 'B'}, {'B', 'D'}, {'F'}, {'D', 'C'}, {'C'}, {'D'}, {'D'}, {'D'}]
+Simbolos: ['0', '1', 'ε']
 Estado inicial: A
-Aceptacion: ["{'D', 'B'}", "{'E', 'D', 'C', 'B'}", "{'D', 'C'}", "{'D'}"]
-Transiciones: (VACIO, 1, VACIO)- (VACIO, 0, VACIO)- (VACIO, ε, VACIO)- ({'A'}, 1, {'D', 'B'})- ({'A'}, 0, {'E', 'D', 'C', 'B'})- ({'D', 'B'}, 1, {'C'})- ({'D', 'B'}, 0, VACIO)- ({'E', 'D', 'C', 'B'}, 1, {'D', 'C'})- ({'E', 'D', 'C', 'B'}, 0, {'F'})- ({'C'}, 1, {'D'})- ({'C'}, 0, VACIO)- ({'D', 'C'}, 1, {'D'})- ({'D', 'C'}, 0, VACIO)- ({'F'}, 1, VACIO)- ({'F'}, 0, {'D'})- ({'D'}, 1, VACIO)- ({'D'}, 0, VACIO)- 
+Aceptacion: ["{'D', 'E', 'C', 'B'}", "{'B', 'D'}", "{'D', 'C'}", "{'D'}"]
+Transiciones: (VACIO, 0, VACIO)- (VACIO, 1, VACIO)- (VACIO, ε, VACIO)- ({'A'}, 0, {'D', 'E', 'C', 'B'})- ({'A'}, 1, {'B', 'D'})- ({'D', 'E', 'C', 'B'}, 0, {'F'})- ({'D', 'E', 'C', 'B'}, 1, {'D', 'C'})- ({'B', 'D'}, 0, VACIO)- ({'B', 'D'}, 1, {'C'})- ({'F'}, 0, {'D'})- ({'F'}, 1, VACIO)- ({'D', 'C'}, 0, VACIO)- ({'D', 'C'}, 1, {'D'})- ({'C'}, 0, VACIO)- ({'C'}, 1, {'D'})- ({'D'}, 0, VACIO)- ({'D'}, 1, VACIO)- 

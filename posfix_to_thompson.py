@@ -1,8 +1,9 @@
-from temp_regex_to_posfix import run
+
 from maquina_thompson import MaquinaThompson
+from regex_to_posfix import *
 
 def regex_to_afn_using_thompson(regex):
-    posfix = run(regex)
+    posfix = infix_to_postfix(process_regex(regex))
     cont = 0
     estados_utilizado = -1
     operadores = ['*', '|', '.'] 

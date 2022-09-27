@@ -7,11 +7,7 @@ def get_equivalents(equivalencias: list[list[str]], transiciones: dict[str:dict[
     n_eq = []
     for conjunto in equivalencias:
         for index, estado in enumerate(conjunto):
-            for i in range(1,len(conjunto)):
-    # me rendi por hoy :( manana sigo
-
-
-
+            
 
 def minimizador_AFD(afd: AFD)-> AFD:
     # E0
