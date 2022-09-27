@@ -1,7 +1,8 @@
 from nodo_camino import NodoCamino
+from time import time
 
 class Camino():
-    def __init__(self, nombre: str, cadena_recorrida: str, cerradura_asociada: dict, transitions: dict, estado_inicial) -> None:
+    def __init__(self, nombre: str, cadena_recorrida: str, cerradura_asociada: dict, transitions: dict, estado_inicial, estados_de_aceptacion) -> None:
         self.nombre = nombre
         self.cadena_recorrida = cadena_recorrida
         self.caminos_enlistado = []
@@ -12,11 +13,11 @@ class Camino():
         self.estado_inicial = estado_inicial
         self.cerradura_inicial: set = cerradura_asociada.get(estado_inicial)
         self.hasResultDefined = None
-        self.estados_de_aceptacion = []
+        self.estados_de_aceptacion = estados_de_aceptacion
     
     def setup_tree(self):
         index = 0
-        
+        start_simulation = time()
         for estado in self.cerradura_inicial:
             self.nodo_raiz.add_siguiente((None, NodoCamino(index, estado, 0, self.nodo_raiz, self.cerradura_asociada.get(estado), [('START>', estado)])))#Añadir a la lista tupla
             index += 1
@@ -61,4 +62,6 @@ class Camino():
             nodos_a_tratar = nuevos_nodos_a_tratar
             cont_cad += 1
         paths.extend(nodos_a_tratar)
-        self.caminos_enlistado = [nodo.recorrido for nodo in paths]
+        
+        self.caminos_enlistado = [(nodo.recorrido, False if 'No trancision definida' in nodo.recorrido[-1][0] else True if nodo.recorrido[-1][1] in self.estados_de_aceptacion else False ) for nodo in paths]
+        return (self.caminos_enlistado, time()-start_simulation)

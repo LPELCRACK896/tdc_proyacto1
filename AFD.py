@@ -1,5 +1,5 @@
 from automata import Automata
-
+from time import time
 class AFD(Automata):
 
     def __init__(self, estado_inicial, alfabeto=[], estados=[], estados_de_aceptacion=[], transitions = {}):
@@ -17,7 +17,8 @@ class AFD(Automata):
                     print(f"No se ha definido la trancision para el estado {state} con input {trns}")
                     print(self.transitions)
                     return
-                    
+
+        start = time()  
         estado_actual = self.estado_inicial
         res_str = ""
         vertices = [estado_actual]
@@ -27,7 +28,7 @@ class AFD(Automata):
             vertices.append(estado_actual)
             res_str += f"-({input})->"+estado_actual+"\n"
         print(res_str)
-        return vertices, estado_actual in self.estados_de_aceptacion
+        return vertices, estado_actual in self.estados_de_aceptacion, time()-start
     
     def build_AFD_step_by_step(self):
         for estado in self.transitions.copy():
