@@ -24,7 +24,6 @@ def processRegex(regex):
             modified += '.'+regex[i]
         else:
             modified += regex[i]       
-    print (modified)
     return modified
 
 def infix2postfix(regex):

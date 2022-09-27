@@ -1,6 +1,6 @@
 from automata import Automata
 from camino import Camino
-
+from time import time
 class AFN(Automata):
     
     def __init__(self, estado_inicial, alfabeto = [], estados = [], estados_de_aceptacion = [], transitions = {}):
@@ -77,9 +77,12 @@ class AFN(Automata):
         if not self.check_cadena(cadena):
             print("Cadena invalida")
             return
+        start = time()
         self.create_cerradura_de_estados()
         camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial)
         camino.setup_tree()
+        final = time()
+        print(final-start)
         self.caminos = camino.caminos_enlistado
         
 

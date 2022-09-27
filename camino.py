@@ -12,6 +12,7 @@ class Camino():
         self.estado_inicial = estado_inicial
         self.cerradura_inicial: set = cerradura_asociada.get(estado_inicial)
         self.hasResultDefined = None
+        self.estados_de_aceptacion = []
     
     def setup_tree(self):
         index = 0
