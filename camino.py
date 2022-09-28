@@ -37,7 +37,7 @@ class Camino():
                         recorrido = nodo_actual.recorrido[:]
                         recorrido.append(('ε>', estado_en_cerradura))
                         nodo_transitorio_e = NodoCamino(index, estado_en_cerradura, nodo_actual.numero_paso, nodo_actual, self.cerradura_asociada.get(estado_en_cerradura), recorrido)
-                        nodo_actual.add_siguiente(('ε', nodo_transitorio_e)) #Se hace la referencia en el nodo actual del siguiente, segun la trancision
+                        nodo_actual.add_siguiente(['ε', nodo_transitorio_e]) #Se hace la referencia en el nodo actual del siguiente, segun la trancision
                         index += 1
                     else:
                         nodo_transitorio_e = nodo_actual
@@ -54,7 +54,7 @@ class Camino():
                     else:
                             recorrido = nodo_transitorio_e.recorrido[:]
                             recorrido.append((f'{inpt_alf}(No trancision definida)>', estado_en_cerradura))
-                            nodo_siguiente = NodoCamino(index, next_estado, paso, nodo_transitorio_e, self.cerradura_asociada.get(next_estado), recorrido)
+                            nodo_siguiente = NodoCamino(index, nodo_actual.nombre, paso, nodo_transitorio_e, self.cerradura_asociada.get(nodo_actual.nombre), recorrido)
                             nodo_transitorio_e.add_siguiente(nodo_siguiente) #Se hace la referencia en el nodo actual del siguiente, segun la trancision
                             paths.append(nodo_siguiente)
                             index += 1
@@ -62,6 +62,5 @@ class Camino():
             nodos_a_tratar = nuevos_nodos_a_tratar
             cont_cad += 1
         paths.extend(nodos_a_tratar)
-        
-        self.caminos_enlistado = [(nodo.recorrido, False if 'No trancision definida' in nodo.recorrido[-1][0] else True if nodo.recorrido[-1][1] in self.estados_de_aceptacion else False ) for nodo in paths]
+        self.caminos_enlistado = [(nodo.recorrido, nodo.recorrido[-1][1] in self.estados_de_aceptacion ) for nodo in paths]
         return (self.caminos_enlistado, time()-start_simulation)
