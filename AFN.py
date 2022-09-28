@@ -10,14 +10,7 @@ class AFN(Automata):
         self.cerraduras_de_estados = { estado : set() for estado in self.estados }
         self.caminos = []
 
-        f=open("AFN.txt",'w')
-        trans=""
-        tablita = transitions
-        for r in tablita:
-            for b in tablita.get(r):
-                trans += (f"({r}, {b}, {tablita.get(r).get(b)})- ")
-        
-        # f.write('Estados: '+str(estados)+'\n'+'Simbolos: '+str(alfabeto)+'\n'+'Estado inicial: '+str(estado_inicial)+'\n'+'Aceptacion: '+str(estados_de_aceptacion)+'\n'+'Transiciones: '+str(trans)+'\n')
+
 
         
         self.create_cerradura_de_estados()
