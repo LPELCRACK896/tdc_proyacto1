@@ -8,6 +8,14 @@ class AFD(Automata):
             return
         super().__init__(estado_inicial, alfabeto, estados, estados_de_aceptacion)
         self.transitions: dict = transitions if transitions else {estado: {caracter: [] for caracter in self.alfabeto} for estado in self.estados}#Trancisiones que se realizan entre (representa las aristas), Vertical:  // None indica que no hay trancision
+
+    def check_cadena(self, cadena):
+        aprueba = True
+        cont = 0
+        while aprueba and cont!=len(cadena):
+            aprueba = cadena[cont] in self.alfabeto
+            cont += 1
+        return aprueba
     
     def emulate_AFD(self, cadena: str):
         

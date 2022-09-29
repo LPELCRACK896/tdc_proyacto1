@@ -73,8 +73,8 @@ class AFN(Automata):
         start = time()
         self.create_cerradura_de_estados()
         camino = Camino(f"Camino cadena: {cadena}", cadena, self.cerraduras_de_estados, self.transitions, self.estado_inicial, self.estados_de_aceptacion)
-        self.caminos, tiempo = camino.setup_tree()        
-        return self.caminos, tiempo
+        self.caminos, tiempo = camino.setup_tree()
+        return camino.caminos_enlistado, tiempo
  
 
     
